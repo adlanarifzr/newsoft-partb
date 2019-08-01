@@ -32,13 +32,13 @@ Route::middleware('auth')->group(function() {
 	});
 
 	Route::prefix('/listings')->group(function() {
-		Route::get('/', 'listingController@index')->name('listings');
-		Route::post('/', 'listingController@insert');
+		Route::get('/', 'ListingController@index')->name('listings');
+		Route::post('/', 'ListingController@insert');
 
 		Route::prefix('/{id}')->group(function() {
-			Route::get('/', 'listingController@view')->name('listings.item');
-			Route::patch('/', 'listingController@update');
-			Route::delete('/', 'listingController@delete');
+			Route::get('/', 'ListingController@view')->name('listings.item');
+			Route::patch('/', 'ListingController@update');
+			Route::delete('/', 'ListingController@delete');
 		});
 	});
 });
