@@ -88,7 +88,7 @@ class APIController extends Controller
 	    	});
 
     	return response()->json([
-        	'info' => 'Admin/user only allowed to view own listings only',
+        	'info' => 'Admin or user only allowed to view own listings only',
             'status' => [
             	'code' => 200,
             	'message' => 'Listings successfully retrieved!'
@@ -101,10 +101,10 @@ class APIController extends Controller
     {
     	// Validation
         $validator = \Validator::make($request->all(), [
-            'list_name' => 'nullable|string|max:255',
-            'address' => 'nullable|string|max:255',
-            'latitude' => 'nullable|numeric',
-            'longitude' => 'nullable|numeric',
+            'list_name' => 'nullable|filled|string|max:255',
+            'address' => 'nullable|filled|string|max:255',
+            'latitude' => 'nullable|filled|numeric',
+            'longitude' => 'nullable|filled|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -121,7 +121,7 @@ class APIController extends Controller
 
     	if (!$listing) {
             return response()->json([
-        		'info' => 'Admin/user only allowed to update own listings only',
+        		'info' => 'Admin or user only allowed to update own listings only',
                 'status' => [
                 	'code' => 404,
                 	'message' => 'Listing not found or inaccessible.'
@@ -133,7 +133,7 @@ class APIController extends Controller
         $listing->update($request->all());
 
         return response()->json([
-        	'info' => 'Admin/user only allowed to update own listings only',
+        	'info' => 'Admin or user only allowed to update own listings only',
             'status' => [
             	'code' => 200,
             	'message' => 'Listings successfully updated!'
