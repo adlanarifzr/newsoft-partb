@@ -57,9 +57,11 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @auth
+                        @if(auth()->user()->type == 'a')
                         <li class="nav-item">
                             <a class="nav-link {{ request()->is('users*') ? 'active' : '' }}" href="{{ route('users') }}">{{ __('Users') }}</a>
                         </li>
+                        @endif
                         <li class="nav-item">
                             <a class="nav-link {{ request()->is('listings*') ? 'active' : '' }}" href="{{ route('listings') }}">{{ __('Listings') }}</a>
                         </li>

@@ -9,7 +9,9 @@
 				List of Listings
 			</div>
 			<div class="pull-right">
+				@if(auth()->user()->type == 'a')
 				<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-add"><i class="fa fa-plus mr-1"></i> New Listing</button>
+				@endif
 			</div>
 		</div>
 		<div class="card-body table-responsive">
@@ -22,7 +24,9 @@
 						<th scope="col" class="fit">Latitude</th>
 						<th scope="col" class="fit">Longitude</th>
 						<th scope="col">Submitter</th>
+						@if(auth()->user()->type == 'a')
 						<th scope="col" class="fit">Action</th>
+						@endif
 					</tr>
 				</thead>
 			</table>
@@ -31,6 +35,7 @@
 </div>
 @endsection
 
+@if(auth()->user()->type == 'a')
 @push('modal')
 <!-- The Modal -->
 <div class="modal fade" id="modal-add">
@@ -74,6 +79,7 @@
 	</div>
 </div>
 @endpush
+@endif
 
 @push('js')
 <script type="text/javascript">
@@ -104,10 +110,14 @@
 			{ data: "submitter.name", name: "submitter.name", render: function(data, type, row){
 				return $("<div/>").html(data).text();
 			}},
+			@if(auth()->user()->type == 'a')
 			{ data: "action", name: "action", searchable: false, orderable: false },
+			@endif
 		],
 		"columnDefs": [
+			@if(auth()->user()->type == 'a')
 			{ className: "nowrap", "targets": [6] },
+			@endif
 		],
 		"order": [
 			[ 1, 'asc' ],
@@ -120,6 +130,7 @@
 
 	table.dataTable(settings);
 
+	@if(auth()->user()->type == 'a')
 	$("#form-add").on('submit', function(e) {
 		e.preventDefault();
 		var form = $(this);
@@ -184,5 +195,6 @@
 			}
 		});
     }
+    @endif
 </script>
 @endpush

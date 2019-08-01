@@ -29,6 +29,7 @@ class APIController extends Controller
 
         if (!$user) {
             return response()->json([
+        		'info' => 'Both admin and user should be able to login.',
                 'status' => [
                 	'code' => 404,
                 	'message' => 'User not exist.'
@@ -39,6 +40,7 @@ class APIController extends Controller
         // Verify password
         if (!password_verify($request->password, $user->password)) {
         	return response()->json([
+        		'info' => 'Both admin and user should be able to login.',
                 'status' => [
                 	'code' => 401,
                 	'message' => 'Wrong credentials.'
@@ -50,6 +52,7 @@ class APIController extends Controller
     	$token = $user->createToken('AccessToken')->accessToken;
 
     	return response()->json([
+        	'info' => 'Both admin and user should be able to login.',
             'status' => [
             	'code' => 200,
             	'message' => 'Access granted!'
@@ -85,6 +88,7 @@ class APIController extends Controller
 	    	});
 
     	return response()->json([
+        	'info' => 'Admin/user only allowed to view own listings only',
             'status' => [
             	'code' => 200,
             	'message' => 'Listings successfully retrieved!'
@@ -117,6 +121,7 @@ class APIController extends Controller
 
     	if (!$listing) {
             return response()->json([
+        		'info' => 'Admin/user only allowed to update own listings only',
                 'status' => [
                 	'code' => 404,
                 	'message' => 'Listing not found or inaccessible.'
@@ -128,6 +133,7 @@ class APIController extends Controller
         $listing->update($request->all());
 
         return response()->json([
+        	'info' => 'Admin/user only allowed to update own listings only',
             'status' => [
             	'code' => 200,
             	'message' => 'Listings successfully updated!'

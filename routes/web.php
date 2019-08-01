@@ -15,12 +15,12 @@ Route::get('/', function () {
     return redirect('login');
 });
 
-Auth::routes(['register' => false]);
+Auth::routes();
 
 Route::middleware('auth')->group(function() {
 	Route::get('/home', 'HomeController@index')->name('home');
 
-	Route::prefix('/users')->group(function() {
+	Route::prefix('/users')->middleware('admin')->group(function() {
 		Route::get('/', 'UserController@index')->name('users');
 		Route::post('/', 'UserController@insert');
 
